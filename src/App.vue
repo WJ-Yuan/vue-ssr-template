@@ -1,4 +1,7 @@
 <template>
+  <RouterLink to="/home">Home</RouterLink>
+  <RouterLink to="/about">About</RouterLink>
+
   <router-view v-slot="{ Component }">
     <Suspense>
       <div>
@@ -8,6 +11,4 @@
   </router-view>
 </template>
 
-<script setup lang="ts">
-import { RouterView } from 'vue-router'
-</script>
+<script setup lang="ts"></script>

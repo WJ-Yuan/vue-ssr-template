@@ -21,7 +21,7 @@ const resolve = (p) => path.resolve(__dirname, p)
 
 function registerRouter() {
   app.use(`/${baseUrl}`, router)
-  router.use('/', (_, res) => {
+  app.use('/', (_, res) => {
     res.redirect(`/${baseUrl}/home`)
   })
 }
@@ -40,10 +40,8 @@ async function registerViteMiddleWare() {
         middlewareMode: true,
         watch: {
           usePolling: true,
-          interval: 100
-        },
-        hmr: {
-          port: ''
+          interval: 100,
+          port
         }
       },
       appType: 'custom'
@@ -51,8 +49,8 @@ async function registerViteMiddleWare() {
 
     router.use(vite.middlewares)
   } else {
-    app.use((await import('compression')).default())
-    app.use(
+    router.use((await import('compression')).default())
+    router.use(
       routerBase,
       (await import('serve-static')).default(resolve('dist/client'), {
         index: false
@@ -62,10 +60,10 @@ async function registerViteMiddleWare() {
 
   const indexProd = isProd ? readFileSync(resolve('dist/client/index.html'), 'utf-8') : ''
   const manifest = isProd
-    ? JSON.parse(readFileSync(resolve('dist/client/.vite/ssr-manifest.json'), 'utf-8'))
+    ? JSON.parse(readFileSync(resolve('dist/client/ssr-manifest.json'), 'utf-8'))
     : {}
 
-  app.use('*', async (req, res) => {
+  router.use('*', async (req, res) => {
     try {
       const url = req.originalUrl.replace(routerBase, '/')
       let template, render
@@ -76,19 +74,13 @@ async function registerViteMiddleWare() {
         render = (await vite.ssrLoadModule('/src/entry-server')).render
       } else {
         template = indexProd
-        // @ts-ignore
         render = (await import('./dist/server/entry-server.js')).render
       }
-
       const [appHtml, preloadLinks] = await render(url, manifest)
-
-      console.log(appHtml)
 
       const html = template
         .replace(`<!--preload-links-->`, preloadLinks)
         .replace(`<!--app-html-->`, appHtml)
-
-      console.log(html)
 
       res.status(200).set({ 'Content-Type': 'text/html' }).end(html)
     } catch (e) {
