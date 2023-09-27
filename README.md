@@ -83,14 +83,14 @@ pnpm dev
 ### build
 
 ```sh
-yarn build
+npm run build
 ```
 
 ### preview
 
 ```sh
 # for local preview
-yarn server
+npm run server
 ```
 
 ### production
