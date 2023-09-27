@@ -79,11 +79,10 @@ async function registerViteMiddleWare() {
         template = indexProd
         render = (await import('./dist/server/entry-server.js')).render
       }
-      const [appHtml, preloadLinks, state] = await render(url, manifest)
+      const [appHtml, preloadLinks] = await render(url, manifest)
 
       const html = template
         .replace(`<!--preload-links-->`, preloadLinks)
-        .replace(`<pinia-store>`, state)
         .replace(`<!--app-html-->`, appHtml)
 
       res.status(200).set({ 'Content-Type': 'text/html' }).end(html)

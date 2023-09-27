@@ -4,6 +4,7 @@ import createRouter from '@/router/index'
 import createI18n from '@/i18n/index'
 import App from './App.vue'
 import 'uno.css'
+import 'element-plus/dist/index.css'
 
 export function createApp() {
   const app = createSSRApp(App)

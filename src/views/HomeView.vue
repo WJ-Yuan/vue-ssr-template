@@ -1,5 +1,3 @@
-<script setup lang="ts"></script>
-
 <template>
-  <main>Home</main>
+  <div class="mt-15px">This is Home Page.</div>
 </template>
