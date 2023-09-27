@@ -65,9 +65,10 @@ async function registerViteMiddleWare() {
 
   router.use('*', async (req, res) => {
     try {
-      const url = req.originalUrl.replace(BASE_URL_WITH_SLASH, '/')
+      const url = BASE_URL_WITH_SLASH
+        ? req.originalUrl.replace(BASE_URL_WITH_SLASH, '/')
+        : req.originalUrl
 
-      console.log(req.originalUrl, url)
       let template, render
 
       if (!isProd) {
@@ -78,10 +79,11 @@ async function registerViteMiddleWare() {
         template = indexProd
         render = (await import('./dist/server/entry-server.js')).render
       }
-      const [appHtml, preloadLinks] = await render(url, manifest)
+      const [appHtml, preloadLinks, state] = await render(url, manifest)
 
       const html = template
         .replace(`<!--preload-links-->`, preloadLinks)
+        .replace(`<pinia-store>`, state)
         .replace(`<!--app-html-->`, appHtml)
 
       res.status(200).set({ 'Content-Type': 'text/html' }).end(html)

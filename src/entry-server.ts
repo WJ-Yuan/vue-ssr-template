@@ -3,7 +3,7 @@ import { renderToString } from 'vue/server-renderer'
 import { createApp } from './main'
 
 export async function render(url: string, manifest: Record<string | number, string[]>) {
-  const { app, router } = createApp()
+  const { app, router, store } = createApp()
 
   await router.push(url)
   await router.isReady()
@@ -12,7 +12,8 @@ export async function render(url: string, manifest: Record<string | number, stri
   const html = await renderToString(app, ctx)
 
   const preloadLinks = renderPreloadLinks((ctx as any).modules, manifest)
-  return [html, preloadLinks]
+  const state = JSON.stringify(store.state.value)
+  return [html, preloadLinks, state]
 }
 
 function renderPreloadLinks(
