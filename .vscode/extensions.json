@@ -2,6 +2,9 @@
   "recommendations": [
     "Vue.volar",
     "Vue.vscode-typescript-vue-plugin",
-    "ms-playwright.playwright"
+    "ms-playwright.playwright",
+    "ZixuanChen.vitest-explorer",
+    "antfu.unocss",
+    "Gruntfuggly.todo-tree"
   ]
 }

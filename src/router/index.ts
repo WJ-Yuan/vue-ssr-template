@@ -1,12 +1,9 @@
 import { createMemoryHistory, createRouter, createWebHistory } from 'vue-router'
 import { routes } from './routes'
-
-const baseUrl = process.env.baseUrl || 'baseUrl'
-
-console.log(baseUrl)
+import { isServer, BASE_URL } from '@/constants'
 
 export default function () {
-  const history = import.meta.env.SSR ? createMemoryHistory(baseUrl) : createWebHistory(baseUrl)
+  const history = isServer ? createMemoryHistory(BASE_URL) : createWebHistory(BASE_URL)
   return createRouter({
     history,
     routes

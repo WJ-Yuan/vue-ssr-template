@@ -11,7 +11,7 @@
       <img src="https://img.shields.io/static/v1?label=vite&message=v4.3.9&color=rgb(100 108 255)" alt="vite@4.3.9" />
     </a>
   </div>
-   <div style="font-size: 16px; margin-top: 12px">A vue ssr template created by vite</div>
+   <div style="font-size: 16px; margin-top: 12px">A vite ssr template for vue.js</div>
 </div>
 
 ## 📚 Specification
@@ -23,6 +23,9 @@
 ![vue-router](https://img.shields.io/static/v1?label=vue-router&message=v4.2.2&color=green)
 ![pinia](<https://img.shields.io/static/v1?label=pinia&message=v2.1.3&color=rgb(255,216,89)>)
 ![vue-i18n](<https://img.shields.io/static/v1?label=vue-i18n&message=v9.4.1&color=rgb(62,175,124)>)
+
+### ui-library
+
 ![element-plus](<https://img.shields.io/static/v1?label=element&message=v2.3.14&color=rgb(64,158,255)>)
 
 ### css
@@ -42,6 +45,9 @@ root
   |
   |_ e2e # for e2e test
   |_ env # for environment variables
+    |
+    |_ .env.dev # development env
+    |_ .env.prod # production env
   |_ public # public assets
   |_ src # main src
     |
@@ -49,6 +55,7 @@ root
     |_ api # axios api request
     |_ composables # common vue hooks
     |_ components # common components
+    |_ constants # common constants
     |_ mock # mock config
     |_ router # vue-router config
     |_ store # pinia
@@ -114,3 +121,11 @@ npm run test:e2e
 - [vitest-explorer](https://marketplace.visualstudio.com/items?itemName=ZixuanChen.vitest-explorer)
 - [ms-playwright.playwright](https://marketplace.visualstudio.com/items?itemName=ms-playwright.playwright)
 - [antfu.unocss](https://marketplace.visualstudio.com/items?itemName=antfu.unocss)
+
+## TODO
+
+- [ ] ENV
+- [ ] API
+- [ ] mock
+- [ ] components
+- [ ] e2e

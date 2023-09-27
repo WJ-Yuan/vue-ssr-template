@@ -4,25 +4,25 @@ import process from 'node:process'
 import { fileURLToPath } from 'node:url'
 import express from 'express'
 import { config } from 'dotenv'
+import { BASE_URL, BASE_URL_WITH_SLASH } from './base.js'
 
-await config({ path: `${process.cwd()}/env/.env.${process.env.MODE}` })
+await Promise.resolve(config({ path: `${process.cwd()}/env/.env.${process.env.MODE}` }))
 
 const app = express()
 const router = express.Router()
 
 const isProd = process.env.NODE_ENV === 'production'
-const baseUrl = process.env.baseUrl || 'baseUrl'
-const routerBase = `/${baseUrl}/`
 const port = process.env.PORT || 80
+const routerBase = `/${BASE_URL}`
 
 const root = process.cwd()
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const resolve = (p) => path.resolve(__dirname, p)
 
 function registerRouter() {
-  app.use(`/${baseUrl}`, router)
+  app.use(`${routerBase}`, router)
   app.use('/', (_, res) => {
-    res.redirect(`/${baseUrl}/home`)
+    res.redirect(`${routerBase}/home`)
   })
 }
 
@@ -33,7 +33,7 @@ async function registerViteMiddleWare() {
     vite = await (
       await import('vite')
     ).createServer({
-      base: routerBase,
+      base: BASE_URL_WITH_SLASH,
       root,
       logLevel: 'info',
       server: {
@@ -51,7 +51,7 @@ async function registerViteMiddleWare() {
   } else {
     router.use((await import('compression')).default())
     router.use(
-      routerBase,
+      BASE_URL_WITH_SLASH,
       (await import('serve-static')).default(resolve('dist/client'), {
         index: false
       })
@@ -65,7 +65,9 @@ async function registerViteMiddleWare() {
 
   router.use('*', async (req, res) => {
     try {
-      const url = req.originalUrl.replace(routerBase, '/')
+      const url = req.originalUrl.replace(BASE_URL_WITH_SLASH, '/')
+
+      console.log(req.originalUrl, url)
       let template, render
 
       if (!isProd) {
@@ -92,7 +94,7 @@ async function registerViteMiddleWare() {
 }
 
 ;(async function startServer() {
-  registerRouter()
+  await registerRouter()
   await registerViteMiddleWare()
   app.listen(port, () => {
     console.log(`This server is running at http://localhost:${port}`)

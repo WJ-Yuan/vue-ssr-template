@@ -1,0 +1,22 @@
+{
+  "app": {
+    "instance": 2,
+    "name": "vue-ssr-template",
+    "script": "server.js",
+    "exec_mode": "cluster",
+    "max_memory_restart": "1G",
+    "kill_timeout": 30000,
+    "wait_ready": true,
+    "listen_timeout": 10000,
+    "env": {
+      "ENV": "dev",
+      "MODE": "dev",
+      "NODE_ENV": "production"
+    },
+    "env_prod": {
+      "ENV": "prod",
+      "MODE": "prod",
+      "NODE_ENV": "production"
+    }
+  }
+}
