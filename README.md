@@ -124,8 +124,6 @@ npm run test:e2e
 
 ## TODO
 
-- [ ] ENV
 - [ ] API
 - [ ] mock
-- [ ] components
 - [ ] e2e

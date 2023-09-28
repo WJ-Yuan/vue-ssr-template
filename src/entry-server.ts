@@ -9,12 +9,9 @@ export async function render(url: string, manifest: Record<string | number, stri
   await router.isReady()
 
   const ctx = {}
-  let html = await renderToString(app, ctx)
+  const html = await renderToString(app, ctx)
   const preloadLinks = renderPreloadLinks((ctx as any).modules, manifest)
   const state = JSON.stringify(store.state.value)
-  html += `<script>window.__INITIAL_STATE__ = ${replaceHtmlTag(
-    JSON.stringify(store.state.value)
-  )}</script>`
   return [html, preloadLinks, state]
 }
 
@@ -63,10 +60,4 @@ function renderPreloadLink(file: string) {
   } else {
     return ''
   }
-}
-
-function replaceHtmlTag(html: string) {
-  return html
-    .replace(/<script(.*?)>/gi, '&lt;script$1&gt;')
-    .replace(/<\/script>/g, '&lt;/script&gt;')
 }
