@@ -111,6 +111,7 @@ You can run project in `docker` or remote server by pm2.
 npm run test:unit
 
 # e2e test
+npm playwright install # prerequisite before first test
 npm run test:e2e
 ```
 
@@ -126,4 +127,3 @@ npm run test:e2e
 
 - [ ] API
 - [ ] mock
-- [ ] e2e
