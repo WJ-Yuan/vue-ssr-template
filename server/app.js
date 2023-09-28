@@ -3,6 +3,7 @@ import path from 'node:path'
 import process from 'node:process'
 import { fileURLToPath } from 'node:url'
 import express from 'express'
+import { createProxyMiddleware } from 'http-proxy-middleware'
 import { BASE_URL, BASE_URL_WITH_SLASH } from './base.js'
 
 const app = express()
@@ -11,6 +12,7 @@ const router = express.Router()
 const isProd = process.env.NODE_ENV === 'production'
 const port = process.env.PORT || 80
 const routerBase = `/${BASE_URL}`
+const apiUrl = process.env.API_URL || 'http://localhost:8080'
 
 const root = process.cwd()
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
@@ -21,6 +23,33 @@ function registerRouter() {
   app.use('/', (_, res) => {
     res.redirect(`${routerBase}/home`)
   })
+}
+
+function registerApiMiddleware() {
+  const pathRewrite = {}
+  pathRewrite[`^${BASE_URL_WITH_SLASH || '/'}api`] = ''
+
+  router.use(
+    `^${BASE_URL}/api`,
+    createProxyMiddleware({
+      target: apiUrl,
+      xfwd: true,
+      pathRewrite,
+      // secure: false, // for https proxy
+      changeOrigin: true,
+      onProxyReq(proxyReq, req) {
+        const contentType = req.headers['content-type'] || ''
+
+        if (req.body && contentType.indexOf('multipart/form-data') !== 0) {
+          const bodyData = JSON.stringify(req.body)
+          proxyReq.setHeader('Content-Type', 'application/json')
+          // eslint-disable-next-line no-undef
+          proxyReq.setHeader('Content-Length', Buffer.byteLength(bodyData))
+          proxyReq.write(bodyData)
+        }
+      }
+    })
+  )
 }
 
 async function registerViteMiddleWare() {
@@ -76,10 +105,11 @@ async function registerViteMiddleWare() {
         template = indexProd
         render = (await import('../dist/server/entry-server.js')).render
       }
-      const [appHtml, preloadLinks] = await render(url, manifest)
+      const [appHtml, preloadLinks, state] = await render(url, manifest)
 
       const html = template
         .replace(`<!--preload-links-->`, preloadLinks)
+        .replace(`'<pinia-store>'`, state)
         .replace(`<!--app-html-->`, appHtml)
 
       res.status(200).set({ 'Content-Type': 'text/html' }).end(html)
@@ -92,7 +122,8 @@ async function registerViteMiddleWare() {
 }
 
 ;(async function startServer() {
-  await registerRouter()
+  registerRouter()
+  registerApiMiddleware()
   await registerViteMiddleWare()
   app.listen(port, () => {
     console.log(`This server is running at http://localhost:${port}`)

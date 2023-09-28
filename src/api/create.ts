@@ -32,4 +32,6 @@ export const createRequest = ({ baseURL = '', headers = {} }: AxiosRequestConfig
       return Promise.reject(error)
     }
   )
+
+  return instance
 }
