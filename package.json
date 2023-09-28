@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "cross-env MODE=dev node server",
+    "dev": "cross-env NODE_ENV=development MODE=dev node server",
     "build": "run-p build:*",
     "build:client": "vite build --ssrManifest --outDir dist/client",
     "build:server": "vite build --outDir dist/server --ssr src/entry-server",

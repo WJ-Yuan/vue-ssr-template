@@ -77,7 +77,6 @@ async function registerViteMiddleWare() {
   } else {
     router.use((await import('compression')).default())
     router.use(
-      BASE_URL_WITH_SLASH,
       (await import('serve-static')).default(resolve('dist/client'), {
         index: false
       })

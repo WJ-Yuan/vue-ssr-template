@@ -1,5 +1,5 @@
 import { fileURLToPath, URL } from 'node:url'
-import { defineConfig, loadEnv, type UserConfig } from 'vite'
+import { defineConfig, type UserConfig } from 'vite'
 // plugins
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
@@ -10,16 +10,13 @@ import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 import Unocss from 'unocss/vite'
 import presetUno from '@unocss/preset-uno'
 import presetAttributify from '@unocss/preset-attributify'
-// @ts-ignore
-import { BASE_URL_WITH_SLASH } from './server/base.js'
+
+const base = '/base/'
 
 // https://vitejs.dev/config/
-export default defineConfig(({ mode }) => {
-  const isProd = mode === 'production'
-  const env = loadEnv(mode, process.cwd(), '')
-
-  const baseConfig: UserConfig = {
-    base: BASE_URL_WITH_SLASH,
+export default defineConfig(() => {
+  const config: UserConfig = {
+    base,
     plugins: [
       vue(),
       vueJsx(),
@@ -47,15 +44,6 @@ export default defineConfig(({ mode }) => {
       }
     }
   }
-
-  const devConfig: UserConfig = {
-    ...baseConfig,
-    define: {
-      'process.env': env
-    }
-  }
-
-  const config: UserConfig = isProd ? baseConfig : devConfig
 
   return config
 })

@@ -1,8 +1,8 @@
 <template>
-  <div class="mt-15px">This is an about page</div>
-  <button class="mt-15px text-white custom-button cursor-pointer" @click="handleClick">
-    count: {{ count }}
-  </button>
+  <div>
+    <div class="mt-15">This is an about page</div>
+    <button class="mt-15 custom-button" @click="handleClick">count: {{ count }}</button>
+  </div>
 </template>
 
 <script lang="ts" setup>
@@ -24,5 +24,11 @@ const handleClick = () => {
   padding: 5px 15px;
   font-weight: 700;
   font-size: 14px;
+  color: #fff;
+  cursor: pointer;
+}
+
+.mt-15 {
+  margin-top: 15px;
 }
 </style>
