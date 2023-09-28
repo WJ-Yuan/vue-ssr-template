@@ -3,10 +3,7 @@ import path from 'node:path'
 import process from 'node:process'
 import { fileURLToPath } from 'node:url'
 import express from 'express'
-import { config } from 'dotenv'
 import { BASE_URL, BASE_URL_WITH_SLASH } from './base.js'
-
-await Promise.resolve(config({ path: `${process.cwd()}/env/.env.${process.env.MODE}` }))
 
 const app = express()
 const router = express.Router()
@@ -17,7 +14,7 @@ const routerBase = `/${BASE_URL}`
 
 const root = process.cwd()
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
-const resolve = (p) => path.resolve(__dirname, p)
+const resolve = (p) => path.resolve(__dirname, '../', p)
 
 function registerRouter() {
   app.use(`${routerBase}`, router)
@@ -77,7 +74,7 @@ async function registerViteMiddleWare() {
         render = (await vite.ssrLoadModule('/src/entry-server')).render
       } else {
         template = indexProd
-        render = (await import('./dist/server/entry-server.js')).render
+        render = (await import('../dist/server/entry-server.js')).render
       }
       const [appHtml, preloadLinks] = await render(url, manifest)
 

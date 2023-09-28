@@ -45,7 +45,7 @@ root
   |
   |_ e2e # for e2e test
   |_ env # for environment variables
-    |
+    |_ .env # common env
     |_ .env.dev # development env
     |_ .env.prod # production env
   |_ public # public assets
@@ -56,7 +56,6 @@ root
     |_ composables # common vue hooks
     |_ components # common components
     |_ constants # common constants
-    |_ mock # mock config
     |_ router # vue-router config
     |_ store # pinia
     |_ utils # common utils
@@ -122,8 +121,3 @@ npm run test:e2e
 - [vitest-explorer](https://marketplace.visualstudio.com/items?itemName=ZixuanChen.vitest-explorer)
 - [ms-playwright.playwright](https://marketplace.visualstudio.com/items?itemName=ms-playwright.playwright)
 - [antfu.unocss](https://marketplace.visualstudio.com/items?itemName=antfu.unocss)
-
-## TODO
-
-- [ ] API
-- [ ] mock

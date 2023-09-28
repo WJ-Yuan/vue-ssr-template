@@ -8,7 +8,7 @@ const rewriteEnv = async () => {
 
 const runServer = async () => {
   try {
-    await import('./app.js')
+    await import('./server/app.js')
   } catch (error) {
     console.log(error)
   }
