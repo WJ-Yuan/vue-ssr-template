@@ -11,7 +11,7 @@
       <img src="https://img.shields.io/static/v1?label=vite&message=v4.3.9&color=rgb(100 108 255)" alt="vite@4.3.9" />
     </a>
   </div>
-   <div style="font-size: 16px; margin-top: 12px">A vite ssr template for vue.js</div>
+   <div style="font-size: 16px; margin-top: 12px">A vue ssr template created by vite</div>
 </div>
 
 ## 📚 Specification
