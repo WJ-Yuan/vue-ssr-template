@@ -1,6 +1,6 @@
 <template>
   <CommonLayout>
-    <RouterLink class="mr-10" to="/home">Home</RouterLink>
+    <RouterLink class="mr-10px" to="/home">Home</RouterLink>
     <RouterLink to="/about">About</RouterLink>
 
     <router-view v-slot="{ Component }">

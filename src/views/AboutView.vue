@@ -1,7 +1,7 @@
 <template>
   <div>
-    <div class="mt-15">This is an about page</div>
-    <button class="mt-15 custom-button" @click="handleClick">count: {{ count }}</button>
+    <div class="mt-15px">This is an about page</div>
+    <button class="mt-15px custom-button" @click="handleClick">count: {{ count }}</button>
   </div>
 </template>
 
@@ -26,9 +26,5 @@ const handleClick = () => {
   font-size: 14px;
   color: #fff;
   cursor: pointer;
-}
-
-.mt-15 {
-  margin-top: 15px;
 }
 </style>

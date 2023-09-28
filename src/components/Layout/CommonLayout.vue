@@ -1,8 +1,8 @@
 <template>
   <div>
-    <div class="text-center mt-100">
+    <div class="text-center mt-100px">
       <div>
-        <img class="img" src="@/assets/vue.svg" alt="vue" />
+        <img class="img mr-10px" src="@/assets/vue.svg" alt="vue" />
 
         <img class="img" src="@/assets/vite.svg" alt="vite" />
       </div>
@@ -20,18 +20,6 @@ defineOptions({
 })
 </script>
 <style lang="scss" scoped>
-.text-center {
-  text-align: center;
-}
-
-.mt-100 {
-  margin-top: 100px;
-}
-
-.mr-10 {
-  margin-right: 10px;
-}
-
 .img {
   width: 100px;
   cursor: pointer;
