@@ -1,9 +1,21 @@
 import { basename } from 'node:path'
 import { renderToString } from 'vue/server-renderer'
 import { createApp } from './main'
+import { useCommonStore } from '@/store/common'
+import { changeLang } from '@/utils'
+import type { Lang } from '@/constants'
 
-export async function render(url: string, manifest: Record<string | number, string[]>) {
+export async function render(
+  url: string,
+  manifest: Record<string | number, string[]>,
+  req: Record<string, unknown>
+) {
   const { app, router, store } = createApp()
+
+  const lang = req.lang as Lang
+  const commonStore = useCommonStore(store)
+  commonStore.changeLang(lang)
+  changeLang(app, lang)
 
   await router.push(url)
   await router.isReady()

@@ -1,0 +1,10 @@
+{
+  "locales": {
+    "zh": "简体中文",
+    "en": "English"
+  },
+  "description": {
+    "home": "这是首页",
+    "about": "这是关于页"
+  }
+}

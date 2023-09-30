@@ -24,10 +24,6 @@
 ![pinia](<https://img.shields.io/static/v1?label=pinia&message=v2.1.3&color=rgb(255,216,89)>)
 ![vue-i18n](<https://img.shields.io/static/v1?label=vue-i18n&message=v9.4.1&color=rgb(62,175,124)>)
 
-### ui-library
-
-![element-plus](<https://img.shields.io/static/v1?label=element&message=v2.3.14&color=rgb(64,158,255)>)
-
 ### css
 
 ![sass](<https://img.shields.io/static/v1?label=sass&message=v1.68.0&color=rgb(204,10,153)>)
@@ -45,6 +41,7 @@ root
   |
   |_ e2e # for e2e test
   |_ env # for environment variables
+    |
     |_ .env # common env
     |_ .env.dev # development env
     |_ .env.prod # production env

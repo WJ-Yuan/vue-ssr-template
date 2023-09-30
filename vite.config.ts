@@ -6,17 +6,16 @@ import vueJsx from '@vitejs/plugin-vue-jsx'
 import VueMacros from 'unplugin-vue-macros/dist/vite'
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
-import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 import Unocss from 'unocss/vite'
 import presetUno from '@unocss/preset-uno'
 import presetAttributify from '@unocss/preset-attributify'
-
-const base = '/base/'
+// @ts-ignore
+import { BASE_URL_WITH_SLASH } from './server/base.js'
 
 // https://vitejs.dev/config/
 export default defineConfig(() => {
   const config: UserConfig = {
-    base,
+    base: BASE_URL_WITH_SLASH,
     plugins: [
       vue(),
       vueJsx(),
@@ -28,12 +27,9 @@ export default defineConfig(() => {
           enabled: true,
           filepath: './.eslintrc-auto-import.json',
           globalsPropValue: true
-        },
-        resolvers: [ElementPlusResolver()]
+        }
       }),
-      Components({
-        resolvers: [ElementPlusResolver()]
-      }),
+      Components(),
       Unocss({
         presets: [presetUno(), presetAttributify()]
       })

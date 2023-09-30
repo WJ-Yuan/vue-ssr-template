@@ -1,13 +1,15 @@
 <template>
   <div>
-    <div class="mt-15px">This is an about page</div>
+    <div class="mt-15px">{{ $t('description.about') }}</div>
     <button class="mt-15px custom-button" @click="handleClick">count: {{ count }}</button>
   </div>
 </template>
 
 <script lang="ts" setup>
+import { useI18n } from 'vue-i18n'
 import { useCounterStore } from '@/store/counter'
 
+const { t: $t } = useI18n()
 const counterStore = useCounterStore()
 const { count } = storeToRefs(counterStore)
 const handleClick = () => {

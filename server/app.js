@@ -52,6 +52,15 @@ function registerApiMiddleware() {
   )
 }
 
+function registerLanguageMiddleware() {
+  router.use('*', (req, res, next) => {
+    const acceptLangList = ['en', 'zh']
+    const lang = req.acceptsLanguages(acceptLangList)
+    req.lang = lang
+    next()
+  })
+}
+
 async function registerViteMiddleWare() {
   let vite
 
@@ -104,7 +113,7 @@ async function registerViteMiddleWare() {
         template = indexProd
         render = (await import('../dist/server/entry-server.js')).render
       }
-      const [appHtml, preloadLinks, state] = await render(url, manifest)
+      const [appHtml, preloadLinks, state] = await render(url, manifest, req)
 
       const html = template
         .replace(`<!--preload-links-->`, preloadLinks)
@@ -122,6 +131,7 @@ async function registerViteMiddleWare() {
 
 ;(async function startServer() {
   registerRouter()
+  registerLanguageMiddleware()
   registerApiMiddleware()
   await registerViteMiddleWare()
   app.listen(port, () => {
