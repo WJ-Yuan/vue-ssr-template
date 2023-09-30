@@ -5,6 +5,7 @@
     "ms-playwright.playwright",
     "ZixuanChen.vitest-explorer",
     "antfu.unocss",
-    "Gruntfuggly.todo-tree"
+    "Gruntfuggly.todo-tree",
+    "Lokalise.i18n-ally"
   ]
 }

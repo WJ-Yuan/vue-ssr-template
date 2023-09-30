@@ -70,6 +70,8 @@ root
 
 ## ⌨️ Development
 
+###
+
 ```sh
 # npm
 npm run dev
@@ -79,6 +81,19 @@ yarn dev
 
 # pnpm
 pnpm dev
+```
+
+### lint
+
+```sh
+# type-check
+npm run type-check
+
+# lint
+npm run lint
+
+# format
+npm run format
 ```
 
 ## 🌐 Production
@@ -118,3 +133,4 @@ npm run test:e2e
 - [vitest-explorer](https://marketplace.visualstudio.com/items?itemName=ZixuanChen.vitest-explorer)
 - [ms-playwright.playwright](https://marketplace.visualstudio.com/items?itemName=ms-playwright.playwright)
 - [antfu.unocss](https://marketplace.visualstudio.com/items?itemName=antfu.unocss)
+- [Lokalise.i18n-ally](https://marketplace.visualstudio.com/items?itemName=Lokalise.i18n-ally)
